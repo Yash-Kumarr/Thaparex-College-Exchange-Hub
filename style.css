@@ -1,0 +1,385 @@
+#one
+{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    
+    margin: 0;
+    padding: 0;
+    background-color: #f1f3f6; /* Light Blue Background */
+}
+
+header {
+    background-color: #0b4bb0; /* Dark Green Header */
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color:rgb(1, 148, 156); /* Medium Blue-Green Navigation Bar */
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+section {
+    padding: 20px;
+}
+
+.category {
+    background-color: #e1f5fe; /* Light Blue Category Background */
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.product {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #e1f5fe; /* Light Blue Border */
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: rgb(0, 79, 34); /* Medium Blue-Green Button */
+    color: #ffffff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.product-container {
+    display: flex;
+    overflow-x: auto;
+}
+
+h3,h2{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+h3{
+    font-size: larger;
+    
+}
+.product-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.product-link img {
+    width: 100px; /* Adjust the image size as needed */
+    height: auto;
+    border: 1px solid #ddd;
+    margin: 10px;
+}
+
+.seller-info
+{
+align-self: self-start;
+}
+/* Add your existing styles here */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+footer {
+    background-color: #1c56b3; /* Blue color */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #2980b9; /* Darker blue color */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.owner-info, .social-media {
+    flex: 1;
+    text-align: left;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #2980b9; /* Darker blue color */
+    border-radius: 10px;
+}
+
+.owner-info h3 {
+    margin-bottom: 10px;
+}
+
+.social-media h3 {
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.social-media a {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.social-media img {
+    width: 40px;
+    margin: 0 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-media img:hover {
+    transform: scale(1.2);
+}
+.geek2
+{
+    font-family:cursive
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+}
+
+
+button {
+    background-color: #2980b9; /* Darker blue color */
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.miscellaneous {
+    display: flex;
+    flex-wrap: wrap;
+}
+ #productImage
+{
+    background-color: #ffffff; /* Change background color */
+            color: #fff; /* Change text color */
+            padding: 10px 20px; /* Adjust padding as needed */
+            border: none;
+            border-radius: 5px;
+            font-size: 15px; /* Change font size */
+            font-weight: bold; /* Add bold font */
+            text-transform: uppercase; /* Convert text to uppercase */
+            cursor: pointer;
+            display: inline-block;
+            
+            transition: background-color 0.3s ease; 
+}
+#pic
+{
+    width: 120px; /* Set the width of the picture */
+    height: 120px; /* Set the height of the picture */
+    background-color: #6daaea; /* Change the background color */
+    color: #fff; /* Change the text color */
+    border: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 150px;
+    padding: 5px 10px; /* Adjust padding to reduce size */
+    font-size: 8px; /* Adjust font size to reduce size */
+    cursor: pointer;
+    position: relative;
+    top: 7px; /* Adjust as needed */
+    left: 2px; /* Position it at the
+     extreme right */
+}
+
+.product {
+    display: inline-block;
+    margin-right: 20px; /* Add some margin between products */
+    vertical-align: top; /* Align products to the top */
+}
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #6daaea; /* Change the background color */
+    color: #fff; /* Change the text color */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style for the file input */
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+#cartCount {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #6daaea;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.logout-button {
+    background-color: #6daaea; /* Change the background color */
+    color: #fff; /* Change the text color */
+    border: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 150px;
+    padding: 5px 10px; /* Adjust padding to reduce size */
+    font-size: 18px; /* Adjust font size to reduce size */
+    cursor: pointer;
+    top: 280px; /* Adjust as needed */
+    right: 10px; /* Position it at the extreme right */
+    position: static;
+}
+.add-product-form {
+width: 300px;
+margin: auto;
+text-align: center;
+}
+
+textarea {
+width: calc(100% - 20px);
+height: 100px;
+padding: 10px;
+margin-top: 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
+resize: none;
+font-size: 14px;
+}
+
+input[type="file"],
+button {
+margin-top: 10px;
+}
+
+button {
+padding: 10px 20px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+
+}
+.product {
+    display: inline-block;
+    margin-right: 20px; /* Add some margin between products */
+    vertical-align: top; /* Align products to the top */
+}
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #6daaea; /* Change the background color */
+    color: #fff; /* Change the text color */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style for the file input */
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+#cartCount {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #6daaea;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.logout-button {
+    background-color: #6daaea; /* Change the background color */
+    color: #fff; /* Change the text color */
+    border: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 150px;
+    padding: 5px 10px; /* Adjust padding to reduce size */
+    font-size: 18px; /* Adjust font size to reduce size */
+    cursor: pointer;
+    top: 280px; /* Adjust as needed */
+    right: 10px; /* Position it at the extreme right */
+    position: static;
+}
+.add-product-form {
+width: 300px;
+margin: auto;
+text-align: center;
+}
+
+textarea {
+width: calc(100% - 20px);
+height: 100px;
+padding: 10px;
+margin-top: 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
+resize: none;
+font-size: 14px;
+}
+
+input[type="file"],
+button {
+margin-top: 10px;
+}
+
+button {
+padding: 10px 20px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}

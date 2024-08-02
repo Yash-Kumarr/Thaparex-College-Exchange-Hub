@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        var cartCount = 0;
+
+        function addProduct() {
+    var productName = document.getElementById("productName").value;
+    var productDescription = document.getElementById("productDescription").value;
+    var productImage = document.getElementById("productImage").files[0];
+    
+    // Check if a file is selected
+    if (productImage) {
+        // Check if the selected file is a JPEG file
+        if (productImage.type === "image/jpeg") {
+            // Create a unique ID for each product (you can use a library like uuid to generate unique IDs)
+            var productId = 'product_' + Date.now();
+
+            // Create an object to store product details
+            var newProduct = {
+                id: productId,
+                name: productName,
+                description: productDescription,
+                image: productImage.name // Store image file name or path
+            };
+
+            // Save the new product to local storage
+            var products = JSON.parse(localStorage.getItem('products')) || [];
+            products.push(newProduct);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            // Display name and description in the product list
+            var productList = document.getElementById("productList");
+            var listItem = document.createElement("li");
+            listItem.innerHTML = "<strong>Name:</strong> " + productName + "<br><strong>Description:</strong> " + productDescription;
+            productList.appendChild(listItem);
+            
+            // Increment cart count and display in Add to Cart button
+            cartCount++;
+            var addToCartButtons = document.querySelectorAll(".btn-add-to-cart");
+            addToCartButtons.forEach(function(button) {
+                button.innerHTML = "Add to Cart (" + cartCount + ")";
+            });
+
+            // Clear name and description inputs after adding product
+            document.getElementById("productName").value = "";
+            document.getElementById("productDescription").value = "";
+
+            // Optionally, you can reset the file input
+            document.getElementById("productImage").value = "";
+        } else {
+            // Clear name and description if file is not JPEG
+            document.getElementById("productName").value = "";
+            document.getElementById("productDescription").value = "";
+        }
+    }
+}
+
+// Function to load and display products from local storage when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    var products = JSON.parse(localStorage.getItem('products')) || [];
+    var productList = document.getElementById("productList");
+
+    products.forEach(function(product) {
+        var listItem = document.createElement("li");
+        listItem.innerHTML = "<strong>Name:</strong> " + product.name + "<br><strong>Description:</strong> " + product.description;
+        productList.appendChild(listItem);
+    });
+
+    // Update cart count on Add to Cart buttons
+    cartCount = products.length;
+    var addToCartButtons = document.querySelectorAll(".btn-add-to-cart");
+    addToCartButtons.forEach(function(button) {
+        button.innerHTML = "Add to Cart (" + cartCount + ")";
+    });
+});
+
+        <div id="cartCount"></div>
+    <!-- Other head elements -->
+    
+    var cartCount = 0; // Initialize cart count
+
+function addToCart() {
+    // Increment cart count and update display
+    cartCount++;
+    document.getElementById("cartCount").textContent = cartCount;
+}
+    </script>
+</head>
+
+    </script>
+
+</head>
+<body>
+    <header>
+        <h1 id="one">WELCOME   &nbsp  TO  &nbsp  THAPAREX  <br> College Exchange Portal</h1>
+        <h2 id="one">Buy and Sell Items Within Your College Community</h2>
+        <img id="pic" src="thaparexlogo.enc" alt="">
+    </header>
+    <br>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="search()">Search</button>   &nbsp &nbsp 
+        <a href="registration.html" class="logout-button">Logout</a>
+        <div id="registrationForm" class="registration-form">
+            <!-- Your registration form HTML content goes here -->
+            <!-- Example: -->
+            <!-- <form>
+                Form fields here
+            </form> -->
+        </div>
+    </div>
+
+    <nav>
+        <a href="#electronics">Electronics</a>
+        <a href="sport.html">Sports & Fitness Equipment</a>
+        <a href="#study">Study Materials</a>
+        <a href="#vehicles">Vehicles</a>
+        <a href="#miscellaneous">Miscellaneous</a>
+    </nav>
+    <br>
+<!-- ADDING IMAGE -->
+<div class="add-product-form">
+    <input type="text" id="productName" placeholder="Product Name" required onchange="validateProductName()">
+    <textarea id="productDescription" placeholder="Product Description" rows="4" required maxlength="100" onchange="validateProductDescription()"></textarea>
+    <input type="number" id="productPrice" placeholder="Price (Rs)" required onchange="validateProductPrice()">
+    <input type="file" id="productImage" placeholder="Add Image" disabled required onchange="validateImage()">
+    <button onclick="addProduct(event)">Add Product</button>
+</div>
+
+<script>
+function validateImage() {
+    var fileInput = document.getElementById('productImage');
+    var fileName = fileInput.value;
+    if (/\.(jpe?g)$/i.test(fileName)) {
+        // Valid JPG or JPEG file
+        return true;
+    } else {
+        // Invalid file format
+        alert('Please select a JPG or JPEG format image.');
+        fileInput.value = ''; // Clear the file input
+        return false;
+    }
+}
+
+function validateProductName() {
+    var productName = document.getElementById('productName').value.trim();
+    var alphabeticCount = productName.replace(/[^a-zA-Z]/g, '').length; // Count alphabetic characters
+
+    var fileInput = document.getElementById('productImage');
+
+    if (productName === '') {
+        alert('Please enter the product name.');
+        document.getElementById('productName').focus(); // Set focus back to the input field
+        fileInput.disabled = true; // Disable file input if product name is empty
+        return false;
+    } else if (alphabeticCount < 2) {
+        alert('Product name should contain at least 2 alphabetic characters.');
+        document.getElementById('productName').focus(); // Set focus back to the input field
+        fileInput.disabled = true; // Disable file input if product name is invalid
+        return false;
+    } else if (productName.length > 25) {
+        alert('Product name should not exceed 25 characters.');
+        document.getElementById('productName').focus(); // Set focus back to the input field
+        fileInput.disabled = true; // Disable file input if product name is too long
+        return false;
+    }
+
+    // Enable file input if product name is valid
+    var productPrice = document.getElementById('productPrice').value.trim();
+    fileInput.disabled = (productPrice === ''); // Disable file input if price is empty
+    return true;
+}
+
+function validateProductDescription() {
+    var productDescription = document.getElementById('productDescription').value.trim();
+    if (productDescription === '') {
+        alert('Please enter the product description.');
+        document.getElementById('productDescription').focus(); // Set focus back to the input field
+        return false;
+    }
+    return true;
+}
+
+function validateProductPrice() {
+    var productPrice = document.getElementById('productPrice').value.trim();
+
+    // Regular expression to check for valid input (only numbers)
+    var validInputRegex = /^[^+\-]+$/;
+
+    // Check if the input is empty
+    if (productPrice === '') {
+        alert('Enter price'); // Display message for empty price
+        document.getElementById('productPrice').focus(); // Set focus back to the input field
+        return false;
+    } else if (!validInputRegex.test(productPrice)) {
+        alert('Price should contain only numbers.'); // Display message for invalid input
+        document.getElementById('productPrice').focus(); // Set focus back to the input field
+        return false;
+    } else if (parseFloat(productPrice) <= 0) {
+        alert('Price should be greater than 0.'); // Display message for invalid price
+        document.getElementById('productPrice').focus(); // Set focus back to the input field
+        return false;
+    }
+
+    // Enable file input if price is valid and product name is not empty
+    var productName = document.getElementById('productName').value.trim();
+    var fileInput = document.getElementById('productImage');
+    fileInput.disabled = (productName === ''); // Disable file input if product name is empty
+    return true;
+}
+function addProduct(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get the values of the fields
+    var productName = document.getElementById('productName').value.trim();
+    var productDescription = document.getElementById('productDescription').value.trim();
+    var productPrice = document.getElementById('productPrice').value.trim();
+
+    // Check if any field is empty
+    if (productName === '' || productDescription === '' || productPrice === '') {
+        // Display alert message for empty fields
+        alert('Please fill in all fields.');
+        return; // Exit function if any field is empty
+    }
+
+    // Optionally handle product image file
+    var productImage = ''; // Adjust this based on your handling of image upload
+
+    // Create product object
+    var newProduct = {
+        name: productName,
+        description: productDescription,
+        price: productPrice,
+        image: productImage // Adjust this based on your handling of image upload
+    };
+
+    // Save product to local storage
+    var products = JSON.parse(localStorage.getItem('products')) || [];
+    products.push(newProduct);
+    localStorage.setItem('products', JSON.stringify(products));
+
+    // Display confirmation message or update UI
+    alert('Product added successfully.');
+
+    // Clear the form fields
+    document.getElementById('productName').value = '';
+    document.getElementById('productDescription').value = '';
+    document.getElementById('productPrice').value = '';
+    document.getElementById('productImage').value = '';
+}
+
+</script>
+
+
+    <ul id="productList"></ul>
+
+    <br>
+    <script>
+           document.addEventListener('DOMContentLoaded', () => {
+            const productForm = document.getElementById('product-form');
+            const productList = document.getElementById('product-list');
+            let cartCount = 0;
+
+            // Function to load products from local storage
+            const loadProducts = () => {
+                return JSON.parse(localStorage.getItem('products')) || [];
+            };
+
+            // Function to save products to local storage
+            const saveProducts = (products) => {
+                localStorage.setItem('products', JSON.stringify(products));
+            };
+
+            // Function to render products
+            const renderProducts = (products) => {
+                productList.innerHTML = '';
+                products.forEach((product, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <strong>Name:</strong> ${product.name}<br>
+                        <strong>Description:</strong> ${product.description}<br>
+                        <strong>Price:</strong> Rs ${product.price}<br>
+                        <img src="${product.image}" alt="${product.name}" width="100">
+                    `;
+                    productList.appendChild(listItem);
+                });
+            };
+
+            // Initial load of products
+            const products = loadProducts();
+            renderProducts(products);
+
+            // Event listener for adding new product
+            productForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const productName = document.getElementById('productName').value.trim();
+                const productDescription = document.getElementById('productDescription').value.trim();
+                const productPrice = document.getElementById('productPrice').value.trim();
+                const productImage = document.getElementById('productImage').files[0];
+
+                if (!productName || !productDescription || !productPrice || !productImage) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+
+                if (productImage.type !== 'image/jpeg') {
+                    alert('Please select a JPEG image.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageDataUrl = e.target.result;
+
+                    // Add new product to the list
+                    const newProduct = {
+                        name: productName,
+                        description: productDescription,
+                        price: productPrice,
+                        image: imageDataUrl
+                    };
+
+                    products.push(newProduct);
+                    saveProducts(products);
+                    renderProducts(products);
+
+                    // Clear the form fields
+                    document.getElementById('productName').value = '';
+                    document.getElementById('productDescription').value = '';
+                    document.getElementById('productPrice').value = '';
+                    document.getElementById('productImage').value = '';
+
+                    // Increment cart count and update buttons
+                    cartCount++;
+                    document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+                        button.innerHTML =' Add to Cart (${cartCount})';
+                    });
+                };
+                reader.readAsDataURL(productImage);
+            });
+        });
+    </script>
+    <div id="miscellaneous">
+        <h2>Added Items-</h2>
+    </div>
+  
+
+    <section id="electronics" class="category">
+        <h2>Electronics</h2>
+    
+        <div class="subcategory">
+            <fieldset>
+                <h3>Laptops</h3>
+                <div class="product-container">
+                    <!-- Product Listing for Laptops -->
+                    <div class="product">
+                        <img src="laptop1.jpeg" alt="Laptop">
+                        <a href="reviews.html" class="product-link" data-product="laptop1"><p>Click Here</p></a>
+                        <p>Description: Powerful laptop for all your computing needs.</p>
+                        <p>Price: $800</p>
+                        <p>Seller: John Doe</p>
+                        <button class="btn btn-add-to-cart" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    
+                    <!-- Additional Laptop Images -->
+                    <div class="product">
+                        <img src="laptop2_177x236_1_50.jpeg" alt="Laptop 2">
+                        <p>Description: Additional laptop description.</p>
+                        <p>Price: $900</p>
+                        <p>Seller: Jane Smith</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    <div class="product">
+                        <img src="laptop3_177x236.jpeg" alt="Laptop 3">
+                        <p>Description: Another additional laptop description.</p>
+                        <p>Price: $950</p>
+                        <p>Seller: Mike Johnson</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    <div class="product">
+                        <img src="laptop4_177x236.jpeg" alt="Laptop 4">
+                        <p>Description: Yet another additional laptop description.</p>
+                        <p>Price: $850</p>
+                        <p>Seller: Emily Brown</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    <div class="product">
+                        <img src="laptop5.jpeg" alt="Laptop 5">
+                        <p>Description: Final additional laptop description.</p>
+                        <p>Price: $920</p>
+                        <p>Seller: Mark Taylor</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </section>
+
+    <section id="electronics" class="category">
+        <div class="subcategory">
+            <fieldset>
+                <h3>Smartphones</h3>
+                <div class="product-container">
+                    <div class="product">
+                        <img src="phone1.jpeg" alt="Laptop">
+                        <a href="reviews.html" class="product-link" data-product="laptop1"><p>Click Here</p></a>
+                        <p>Description: Powerful laptop for all your computing needs.</p>
+                        <p>Price: $800</p>
+                        <p>Seller: John Doe</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    <div class="product">
+                        <img src="phone 5.jpeg" alt="Laptop 2">
+                        <p>Description: Additional laptop description.</p>
+                        <p>Price: $900</p>
+                        <p>Seller: Jane Smith</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    <div class="product">
+                        <img src="phone4.jpeg" alt="Laptop 3">
+                        <p>Description: Another additional laptop description.</p>
+                        <p>Price: $950</p>
+                        <p>Seller: Mike Johnson</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    <div class="product">
+                        <img src="phone3.jpeg" alt="Laptop 4">
+                        <p>Description: Yet another additional laptop description.</p>
+                        <p>Price: $850</p>
+                        <p>Seller: Emily Brown</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                    <div class="product">
+                        <img src="phone2.jpeg" alt="Laptop 5">
+                        <p>Description: Final additional laptop description.</p>
+                        <p>Price: $920</p>
+                        <p>Seller: Mark Taylor</p>
+                        <button class="btn btn-add-to-cart">Add to Cart</button>
+                        <button class="btn">Add to Wishlist</button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </section>
+
+    <title>Marquee Tag</title> 
+    <style> 
+        .main { 
+            text-align: center; 
+        } 
+        .marq { 
+            padding-top: 30px; 
+            padding-bottom: 30px; 
+        } 
+        .geek1 { 
+            font-size: 36px; 
+            font-weight: bold; 
+            color: white; 
+            padding-bottom: 10px; 
+        } 
+    </style> 
+</head> 
+
+<body> 
+    <div class="main"> 
+        <marquee class="marq" bgcolor="orange" direction="left" loop=""> 
+            <div class="geek1"> 
+                THANKS FOR USING THAPAREX :)
+            </div> 
+            <div class="geek2">
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; BUY &nbsp;&nbsp;&nbsp;SELL &nbsp;&nbsp;&nbsp;SHARE
+            </div>
+            <div class="geek2"> 
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;Thapar  Univesity   &nbsp;  &nbsp;&nbsp;Connect &nbsp; Portal
+            </div> 
+        </marquee> 
+    </div> 
+<!-- Add Query Button -->
+<button onclick="addQuery()">Add Query</button>
+
+<script>
+function addQuery() {
+    // Regular expression to validate email address with specified domains
+    var emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|thapar\.edu|hotmail\.com)$/;
+
+    // Prompt the user to enter their email address
+    var userEmail = prompt("Please enter your email address:");
+
+    if (userEmail) {
+        // Check if the entered email address matches the required format
+        if (emailRegex.test(userEmail)) {
+            // Compose the email message
+            var subject = "Query from Thaparex Portal";
+            var body = "Please enter your query here:\n\n";
+
+            // Open the user's default email client with the composed email
+            window.open("mailto:yashkumarhoppkins24@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + "&from=" + encodeURIComponent(userEmail));
+        } else {
+            // Inform the user about invalid email address format
+            alert("Please enter a valid email address with one of the following domains: @gmail.com, @thapar.edu, @hotmail.com");
+        }
+    } else {
+        // Handle the case where the user cancels the prompt
+        alert("Email address is required to send the query.");
+    }
+}
+</script>
+
+
+
+<br>
+
+
+    <footer>
+        <div class="footer-container">
+            <div class="owner-info">
+                <h3>Owner: <br> Yash Kumar</h3>
+                <p>Contact: 8369843496</p>
+                <p>Email: yashkumarhoppkins@gmail.com</p>
+            </div>
+            <div class="social-media">
+                <h3><u>Follow us on:</u> </h3>
+                <a href="https://www.instagram.com/y.a.s.h_k.u.m.a.r_/" target="_blank" title="Instagram">
+                    <img src="instaa.png" alt="Instagram">
+                </a>
+                <a href="https://www.youtube.com/channel/UCb3CFGx8isxzyp4iVY1ZL2Q" target="_blank" title="YouTube">
+                    <img src="youtubee.jpg" alt="YouTube">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="script.js"></script>
+</html>
